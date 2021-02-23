@@ -4,9 +4,19 @@ import './Todo.css';
 const Todo = ({ task = 'new task', id = '1', remove, update }) => {
 	const [ updatedTask, setUpdatedTask ] = useState(task);
 	const [ editing, setEditing ] = useState(false);
+	const [ completed, setCompleted ] = useState(false);
+	const [ deleted, setDeleted ] = useState(false);
 
 	const toggleEdit = () => {
 		setEditing((edit) => !edit);
+	};
+
+	const toggleComplete = () => {
+		setCompleted((completed) => !completed);
+	};
+
+	const markDeleted = () => {
+		setDeleted(true);
 	};
 
 	const handleChange = (e) => {
@@ -18,7 +28,12 @@ const Todo = ({ task = 'new task', id = '1', remove, update }) => {
 		update(id, updatedTask);
 		setEditing(false);
 	};
-	const handleRemove = () => remove(id);
+	const handleRemove = () => {
+		markDeleted();
+		setTimeout(() => {
+			remove(id);
+		}, 1000);
+	};
 
 	if (editing) {
 		return (
@@ -31,10 +46,13 @@ const Todo = ({ task = 'new task', id = '1', remove, update }) => {
 		);
 	}
 	return (
-		<div className="Todo-task">
-			<li>{task}</li>
+		<div className={deleted ? 'Todo-hidden' : 'Todo-task'}>
+			<li className={completed ? 'Todo-completed' : 'Todo'}>{task}</li>
 			<button onClick={toggleEdit}>Edit Task</button>
 			<button onClick={handleRemove}>Delete Task</button>
+			<button onClick={toggleComplete}>
+				{completed ? 'Mark As Incomplete' : 'Mark As Completed'}{' '}
+			</button>
 		</div>
 	);
 };
