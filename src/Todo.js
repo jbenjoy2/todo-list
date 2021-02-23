@@ -32,7 +32,7 @@ const Todo = ({ task = 'new task', id = '1', remove, update }) => {
 		markDeleted();
 		setTimeout(() => {
 			remove(id);
-		}, 1000);
+		}, 500);
 	};
 
 	if (editing) {
@@ -48,11 +48,17 @@ const Todo = ({ task = 'new task', id = '1', remove, update }) => {
 	return (
 		<div className={deleted ? 'Todo-hidden' : 'Todo-task'}>
 			<li className={completed ? 'Todo-completed' : 'Todo'}>{task}</li>
-			<button onClick={toggleEdit}>Edit Task</button>
-			<button onClick={handleRemove}>Delete Task</button>
-			<button onClick={toggleComplete}>
-				{completed ? 'Mark As Incomplete' : 'Mark As Completed'}{' '}
-			</button>
+			<div className="Todo-buttons">
+				<button className="Todo-btn" onClick={toggleEdit}>
+					Edit Task
+				</button>
+				<button className="Todo-btn" onClick={handleRemove}>
+					Delete Task
+				</button>
+				<button className="Todo-btn" onClick={toggleComplete}>
+					{completed ? 'Mark As Incomplete' : 'Mark As Completed'}{' '}
+				</button>
+			</div>
 		</div>
 	);
 };
