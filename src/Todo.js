@@ -24,7 +24,7 @@ const Todo = ({ task = 'new task', id = '1', remove, update }) => {
 		return (
 			<div className="Todo-form">
 				<form onSubmit={handleUpdate}>
-					<input type="text" value={updatedTask} onChange={handleChange} />
+					<input type="text" value={updatedTask} onChange={handleChange} autoFocus={true} />
 					<button>Update</button>
 				</form>
 			</div>
